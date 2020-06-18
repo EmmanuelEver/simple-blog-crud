@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Post | {{post.title}}
+{% endblock %}
+
+{% block nav %}
+
+			  <li class="nav-item">
+			    <a class="nav-link" href="/">Welcome</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" href="/posts">Posts</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" href="#">About</a>
+			  </li>
+			
+		
+{% endblock %}
+
+{% block content %}
+		<div class="card" style="width: 18rem;">
+		  <div class="card-body">
+		    <h5 class="card-title">{{ post.title }}</h5>
+		    <h6 class="card-subtitle mb-2 text-muted">{{ post.sub_title }}</h6>
+		    <p class="card-text">{{ post.content }}</p>
+		    <h6 class="card-subtitle mb-2 text-muted">{{ post.date_posted }}</h6>
+		  </div>
+		</div>
+{% endblock %}

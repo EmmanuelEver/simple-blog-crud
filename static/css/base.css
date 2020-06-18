@@ -1,0 +1,92 @@
+	.container{
+    		padding: 40px;
+    	}
+    .jumbotron{
+    	background-image: url(../images/bg.jpg);
+    	background-size: cover;
+    	color: white;
+    }
+	.form-details{
+		width: 100%;
+		display: none;
+		opacity: 0;
+	}
+	.form-details.active{
+		display: block;
+		opacity: 1;
+		animation: appear 0.8s ease-in-out;
+	}
+	  div.row.blogs{
+   	display: flex;
+    justify-content: flex-start;
+   }
+
+   .blogs div.card{
+   	margin: 10px 30px 10px 0px;
+    padding: 30px;
+    position: relative;
+    width: 20rem;
+    height: 90vh;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+   }
+
+   .card-body div:nth-child(1){
+   	height: 20%;
+   }
+   .card-body div:nth-child(2){
+   	height: 60%;
+   }
+   .card-body div:nth-child(3){
+   	height: 15%;
+   }
+
+   .card-body div:nth-child(2) p{
+   	overflow-y: scroll;
+    height: 100%;
+   }
+
+   div.row.add-new-post{
+   	    width: 80vw;
+	    display: flex;
+	    justify-content: flex-end;
+	    margin-bottom: 40px;
+	    margin-right: 20%;
+   }
+   div.row.add-new-post button{
+   	font-weight: bold;
+   	padding: 0.5em;
+   }
+
+  div.row.add-new-post button.hidden{
+   	display: none;
+   }
+   div.action-row{
+   	position: absolute;
+    bottom: 1em;
+   }
+
+   .modal-body div{
+    width: 90%;
+    margin: 0 auto;
+   }
+   .post-id{
+   	margin-left: 1em;
+   	border: none;
+   	pointer-events: none;
+   }
+
+   textarea.form-control {
+    height: 200px;
+	}
+
+@keyframes appear{
+	0%{
+		opacity: 0;
+	}
+	50%{
+		opacity: 0.6;
+	}
+	100%{
+		opacity: 1;
+	}
+}

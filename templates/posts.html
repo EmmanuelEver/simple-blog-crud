@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Posts
+{% endblock %}
+
+{% block style %}
+	{{ super() }}
+	{% endblock %}
+
+{% block nav %}
+
+			  <li class="nav-item">
+			    <a class="nav-link" href="/">Welcome</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link active" href="#">Post</a>
+			  </li>
+			
+		
+{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="form-details">
+			<form action="http://127.0.0.1:5000/posts" method="POST">
+					<div class="form-group row">
+					    <label for="title">Title</label>
+					    <input type="text" class="form-control" id="title" name="title" aria-describedby="emailHelp">
+					    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+					  </div>
+					  <div class="form-group row">
+					    <label for="sub-title">Sub-Title</label>
+					    <input type="text" class="form-control" name="sub-title" id="sub-title">
+					  </div>
+
+					   <div class="form-group row">
+					    <label for="content">Content</label>
+					    <textarea class="form-control" name="content" id="content" rows="3"> </textarea>
+					  </div>
+
+					   <div class="form-group row">
+					    <label for="author">Author</label>
+					    <input type="text" class="form-control" name="author" id="author">
+					  </div>
+				
+				<button type="submit" class="btn btn-success add-btn">Submit post</button>
+				<button type="button" class="btn btn-light" id="close-form-btn">Close</button>
+			</form>
+		</div>
+	</div>
+	<div class="row blogs">
+		<div class="row add-new-post">
+		<button class="btn btn-success add-new-btn" id="add-new-btn">Add Post</button>
+		</div>
+		<div class="row blog-list">
+			{% for post in posts %}
+			<div class="card" style="width: 18rem;">
+				 	<div class="row card-body">
+				 		<div class="row">
+						    <h5 class="card-title">{{ post.title }}</h5>
+						    <h6 class="card-subtitle mb-2 text-muted card-sub-title">{{ post.sub_title }}</h6>
+					    </div>
+					    <div class="row">
+					   		 <p class="card-text">{{ post.content }}</p>
+					    </div>
+					    <div class="row">
+						     <h6 class="card-subtitle mb-2 text-muted card-author">- {{ post.author }}</h6>
+						    <h6 class="card-subtitle mb-2 text-muted ">{{ post.date_posted }}</h6>
+					    </div>
+					</div>
+					<div class="row action-row">
+						<a href="/posts/delete/{{ post.id }}" class="btn btn-danger">Delete</a>
+						<a data-toggle="modal" data-id="{{ post.id }}" data-target="#exampleModal"class="btn btn-primary edit-post-btn">Edit</a>
+					</div>	    
+				    
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+
+	<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		    	  <form class="modal-form" method="POST">
+			      <div class="modal-header">
+			      	<label for="id">Post ID: </label>
+			        <input type="text" value="1" name="id" class="post-id" readonly>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      		<div class="modal-body">	        
+							<div class="form-group row">
+							    <label for="new_title">Title</label>
+							    <input type="text" class="form-control new_title" value="new Norms" id="new_title" name="title" aria-describedby="emailHelp">
+							    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+							  </div>
+							  <div class="form-group row">
+							    <label for="new_sub-title">Sub-Title</label>
+							    <input type="text" class="form-control new_sub-title" name="sub-title" id="new_sub-title">
+							  </div>
+
+							   <div class="form-group row">
+							    <label for="new_content">Content</label>
+							    <textarea class="form-control new_content" name="content" id="new_content" rows="3"> </textarea>
+							  </div>
+
+							   <div class="form-group row">
+							    <label for="new_author">Author</label>
+							    <input type="text" class="form-control new_author" name="author" id="new_author">
+							  </div>
+								<div class="modal-footer">
+						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						        <button type="submit" class="btn btn-success add-btn">Update post</button>
+						      </div>
+			     		</div>
+			     </form>
+		    </div>
+		  </div>
+		</div>
+	
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+	let add_new_btn = $("#add-new-btn");
+	let close_form  = $("#close-form-btn");
+	let add_title = $('#title');
+	let add_sub = $('#sub-title');
+	let content = $('#content');
+	let blog_list = $('.blog-list')
+	let form_details = document.querySelector("body > div > div:nth-child(1) > div")
+
+
+	add_new_btn.on('click', function(e){
+		if (jQuery.inArray('active',form_details.classList) != true)
+		{
+				form_details.classList.toggle('active');
+			this.classList.toggle('hidden');
+		}
+		})
+	close_form.on("click", function(){
+		form_details.classList.remove('active');
+		add_new_btn[0].classList.remove('hidden');
+	})
+
+	blog_list.on('click', 'a.edit-post-btn', function(){
+		let post_id = $(this).attr('data-id')
+		let edit_card_body = $(this).parent().prev()	//sibling
+		let edit_card = $(edit_card_body).children()
+		let edit_title = $(edit_card).children('div h5.card-title')
+		let edit_sub_title = $(edit_card).children('h6.card-sub-title')
+		let edit_content = $(edit_card).children('p.card-text')
+		let edit_author = $(edit_card).children('h6.card-author')
+
+		let modal_form = $('.modal-form')[0]
+		let modal = $('.modal-body')
+		let modal_post_id = $('.modal-header').children('input')
+		let new_title = $(modal).children()[0]
+		let new_sub_title = $(modal).children()[1]
+		let new_content = $(modal).children()[2]
+		let new_author = $(modal).children()[3]
+		$(modal_post_id).val(post_id)
+		$(new_title).children('input').val($(edit_title).text())
+		$(new_sub_title).children('input').val($(edit_sub_title).text())
+		$(new_content).children('textarea').text($(edit_content).text())
+		$(new_author).children('input').val($(edit_author).text())
+		$(modal_form).attr('action', `/posts/update/${post_id}`)
+
+
+
+
+
+	})
+
+
+</script>
+{% endblock %}

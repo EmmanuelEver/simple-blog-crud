@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Welcome
+{% endblock %}
+
+{% block nav %}
+
+			  <li class="nav-item">
+			    <a class="nav-link active" href="#">Welcome</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" href="/posts">Post</a>
+			  </li>
+		
+{% endblock %}
+
+{% block content %}
+	<div class="jumbotron">
+	  <h1 class="display-4">Welcome to my Blog Posts</h1>
+	  <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Parturient montes nascetur ridiculus mus mauris vitae ultricies leo integer. Egestas diam in arcu cursus euismod quis viverra. Vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant. Donec adipiscing tristique risus nec.</p>
+	  <hr class="my-4">
+	  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+	  <a class="btn btn-primary btn-lg" href="/posts" role="button">Learn more</a>
+	</div>
+{% endblock %}
+
